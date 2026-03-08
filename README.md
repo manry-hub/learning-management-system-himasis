@@ -244,3 +244,4 @@ Dikembangkan oleh **Divisi Akademik HIMASIS** — Himpunan Mahasiswa Sistem Info
 # lms-himasis-main
 # lms-himasis-main
 # learning-management-system-himasis
+# learning-management-system-himasis
