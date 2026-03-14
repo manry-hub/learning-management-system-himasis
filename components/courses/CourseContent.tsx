@@ -24,6 +24,7 @@ interface CourseContentProps {
   userId: string | null;
   duration?: string;
   reviews: ReviewData[];
+  studentName?: string;
 }
 
 export function CourseContent({
@@ -31,6 +32,7 @@ export function CourseContent({
   userId,
   duration,
   reviews,
+  studentName,
 }: CourseContentProps) {
   const { isLoaded: isAuthLoaded } = useAuth();
 
@@ -74,6 +76,8 @@ export function CourseContent({
             isCompleted={isCourseCompleted}
             completedLessons={completedLessons}
             totalLessons={totalLessons}
+            studentName={studentName ?? "Student"}
+            courseTitle={course.title ?? "Unknown Course"}
           />
         )}
 

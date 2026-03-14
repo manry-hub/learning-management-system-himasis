@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { auth } from "@clerk/nextjs/server";
+import { auth, currentUser } from "@clerk/nextjs/server";
 import { Header } from "@/components/Header";
 import { CourseContent } from "@/components/courses";
 import { sanityFetch } from "@/sanity/lib/live";
@@ -15,6 +15,10 @@ interface CoursePageProps {
 export default async function CoursePage({ params }: CoursePageProps) {
   const { slug } = await params;
   const { userId } = await auth();
+  const user = userId ? await currentUser() : null;
+  const studentName = user 
+    ? (user.firstName && user.lastName ? `${user.firstName} ${user.lastName}` : user.firstName || user.username || "Student") 
+    : undefined;
 
   const { data: course } = await sanityFetch({
     query: COURSE_WITH_MODULES_QUERY,
@@ -58,6 +62,7 @@ export default async function CoursePage({ params }: CoursePageProps) {
         <CourseContent
           course={course}
           userId={userId}
+          studentName={studentName}
           reviews={reviews ?? []}
           duration={formatDuration(
             course.modules?.reduce(

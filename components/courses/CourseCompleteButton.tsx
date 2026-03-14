@@ -5,6 +5,7 @@ import { CheckCircle2, Circle, Loader2, Trophy, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { toggleCourseCompletion } from "@/lib/actions";
 import { cn } from "@/lib/utils";
+import { CertificateDownloadButton } from "@/components/CertificateDownloadButton";
 
 interface CourseCompleteButtonProps {
   courseId: string;
@@ -12,6 +13,8 @@ interface CourseCompleteButtonProps {
   isCompleted: boolean;
   completedLessons: number;
   totalLessons: number;
+  studentName: string;
+  courseTitle: string;
 }
 
 export function CourseCompleteButton({
@@ -20,6 +23,8 @@ export function CourseCompleteButton({
   isCompleted: initialCompleted,
   completedLessons,
   totalLessons,
+  studentName,
+  courseTitle,
 }: CourseCompleteButtonProps) {
   const [isCompleted, setIsCompleted] = useState(initialCompleted);
   const [isPending, startTransition] = useTransition();
@@ -70,19 +75,11 @@ export function CourseCompleteButton({
             </p>
           </div>
 
-          <Button
-            onClick={handleToggle}
-            disabled={isPending}
-            variant="outline"
-            className="border-white/10 bg-white/5 hover:bg-white/10 text-zinc-400 hover:text-white transition-all rounded-full"
-          >
-            {isPending ? (
-              <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-            ) : (
-              <Circle className="w-4 h-4 mr-2" />
-            )}
-            Mark Incomplete
-          </Button>
+          <CertificateDownloadButton
+            studentName={studentName}
+            courseTitle={courseTitle}
+            completedAt={new Date()}
+          />
         </div>
       </div>
     );
